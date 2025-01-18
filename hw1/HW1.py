@@ -109,8 +109,8 @@ x = quad(integrand, (const.c/(100*u.micron)).to('Hz').value, (const.c/(10*u.nm))
 print(temp(x[0]))
 
 #%%
-#   Define the wavelength range (1nm - 1mm)
-nv = np.logspace(np.log10(3e10), np.log10(3e17), 10000)
+#   Define the wavelength range
+nv = np.logspace(np.log10(3e10), np.log10(3e16), 10000)
 spec_star = flux_den(3000, 5*R_sun, 10) * np.exp(-nv/3e14)
 spec_cloud =  flux_den(temp(x[0]), 5*R_sun + 100*au, 10) * (1-np.exp(-nv/3e14))
 
@@ -119,10 +119,11 @@ ax.plot(nv, spec_star, color = 'blue', label = 'star')
 ax.plot(nv, spec_cloud, color = 'orange', label = 'cloud')
 ax.plot(nv, spec_star + spec_cloud, color = 'black', label = 'total')
 ax.set_xscale('log')
-ax.set_xlim(3e10, 3e17)
+ax.set_xlim(3e10, 3e16)
+ax.set_ylim(10e-40, 10e-20)
 ax.set_yscale('log')
-ax.set_xlabel('Frequency (Hz)', fontsize = 16)
-ax.set_ylabel(r'Intensity (erg/s/cm$^{2}$/Hz)', fontsize = 16)
+ax.set_xlabel('Frequency (Hz)')
+ax.set_ylabel(r'Intensity (erg/s/cm$^{2}$/Hz)')
 ax.legend()
 
 
